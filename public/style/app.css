@@ -149,7 +149,7 @@ button, input, select, textarea {
 .notifications {
   position: absolute;
   z-index: 9999;
-  top: 50px;
+  top: 90px;
   width: 100%;
 }
 
@@ -188,5 +188,66 @@ OVERPASS MAP
 ======================================================================*/
 
 #map .leaflet-control {
-  margin-top: 55px;
+  margin-top: 90px;
 }
+
+#map-key {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  color: #222;
+  font-size: 12px;
+  font-weight: lighter;
+  padding: 5px 0;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 44px;
+  width: 100%;
+  z-index: 9;
+}
+
+  #map-key span {
+    border: 2px solid;
+    display: inline-block;
+    height: 12px;
+    margin: -2px 5px 0 10px;
+    vertical-align: middle;
+    width: 12px;
+  }
+
+    #map-key span:first-child {
+      margin-left: 0;
+    }
+
+  span#map-key-no-height {
+    background: #5b73ff;
+    border-color: #03f;
+  }
+
+  span#map-key-height {
+    background: #999;
+    border-color: #666;
+  }
+
+  span#map-key-building-levels {
+    background: #ff9346;
+    border-color: #f50;
+  }
+
+  /*#map-key ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #map-key li {
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 33%;
+  }
+
+  #map-key li:nth-child(2) {
+    width: 34%;
+  }*/
