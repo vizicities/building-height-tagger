@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ViziCities Building Tagger</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="icon" sizes="196x196" href="icon.png">
+
+    <link href="ratchet/ratchet.min.css" rel="stylesheet">
+
+    <!-- Overpass -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
+    <link rel="stylesheet" href="overpass/map.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="style/app.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+      <h1 class="title">ViziCities Building Tagger</h1>
+      <span class="icon icon-gear pull-right" id="settings-open"></span>
+    </header>
+
+    <div class="content" id="splash">
+
+    </div>
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div class="notifications">
+        <div class="alert alert-success hidden" role="alert">Successfully saved</div>
+        <div class="alert alert-failure hidden" role="alert"></div>
+      </div>
+      <div id="map"></div>
+    </div>
+
+    <div id="measurement" class="modal">
+      <header class="bar bar-nav">
+        <span class="icon icon-close pull-right" id="close-measurement"></span>
+        <h1 class="title">Measure height</h1>
+      </header>
+
+      <div class="content">
+        <div id="camera">
+          <video id="cameraView" autoplay></video>
+        </div>
+        <div id="units">
+          <p id="distance"><span class="icon icon-right-nav"></span><span class="value">0</span>m</p>
+          <p id="height"><span class="icon icon-up-nav"></span><span class="value">0</span>m</p>
+        </div>
+        <div class="bottom">
+          <div class="content-padded">
+            <button class="btn btn-positive btn-inline-block hidden" id="confirm">Confirm height</button>
+            <button class="btn btn-negative btn-inline-block hidden" id="remeasure">Remeasure height</button>
+            <button class="btn btn-primary btn-inline-block" id="set-bottom">Set bottom</button>
+            <button class="btn btn-negative btn-inline-block" id="set-top">Set top</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="settings" class="modal">
+      <header class="bar bar-nav">
+        <span class="icon icon-close pull-right" id="settings-close"></span>
+        <h1 class="title">Settings</h1>
+      </header>
+
+      <div class="content">
+        <ul class="table-view">
+          <li class="table-view-cell">
+            OSM Username
+            <input type="text" placeholder="Username" id="settings-osm-username">
+          </li>
+          <li class="table-view-cell">
+            OSM Password
+            <input type="password" placeholder="Password" id="settings-osm-password">
+          </li>
+          <li class="table-view-cell">
+            Your height
+            <input type="number" min="0" step="0.05" value="0" placeholder="Height in metres" id="settings-height">
+          </li>
+          <li class="table-view-cell">
+            Floor height
+            <input type="number" min="0" step="0.05" value="0" placeholder="Height in metres" id="settings-floor-height">
+          </li>
+        </ul>
+
+        <div class="content-padded">
+          <button class="btn btn-positive btn-block" id="settings-save">Save settings</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="ratchet/ratchet.min.js"></script>
+
+    <script src="js/localforage.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.0.1/q.min.js"></script>
+
+    <!-- JXON -->
+    <script src="js/JXON.js"></script>
+
+    <!-- Overpass -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.3/zepto.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script src="overpass/turbo.min.js"></script>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

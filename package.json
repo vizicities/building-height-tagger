@@ -1,0 +1,15 @@
+{
+  "name": "vizicities-building-tagger",
+  "version": "0.0.1",
+  "description": "Building height measurement tool with automatic upload to OpenStreetMap",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robin Hawkes <rob@rawkes.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.6.0",
+    "errorhandler": "^1.1.1"
+  }
+}

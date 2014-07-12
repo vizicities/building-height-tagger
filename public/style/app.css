@@ -1,0 +1,192 @@
+body,
+button, input, select, textarea {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+#splash {
+  background: #51ade1 url("splash-logo.png") no-repeat center center;
+  background-size: contain;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  transform: translateZ(0);
+  width: 100%;
+  z-index: 9999;
+}
+
+  #splash.hidden {
+    -webkit-transform: translateZ(0) translateY(-100%);
+    -moz-transform: translateZ(0) translateY(-100%);
+    transform: translateZ(0) translateY(-100%);
+  }
+
+.bar-nav {
+  background: #222;
+  border-bottom-color: #000;
+}
+
+  .bar-nav h1,
+  .bar-nav a.icon,
+  .bar-nav span.icon {
+    color: #fff;
+  }
+
+#units {
+  position: absolute;
+  width: 100%;
+}
+
+  #units p {
+    color: #fff;
+    /*font-family: Helvetica Neue, Helvetica, Arial, sans-serif;*/
+    font-size: 30px;
+    font-weight: lighter;
+    letter-spacing: 1.5px;
+    line-height: 1em;
+    padding: 10px;
+    text-shadow: 0 0 10px #666;
+  }
+
+  #units p span.icon {
+    margin-right: 5px;
+  }
+
+  #distance {
+    float: left;
+  }
+
+  #height {
+    float: right;
+  }
+
+#camera {
+  background: #ccc;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+  
+  /* Camera guide */
+  #camera::before {
+    border-top: 1px dashed #00ff00;
+    content: "";
+    display: block;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    width: 100%;
+    z-index: 9999;
+  }
+
+#set-bottom,
+#set-top,
+#confirm {
+  text-transform: uppercase;
+}
+
+#set-bottom {
+  float: left;
+}
+
+#set-top {
+  float: right;
+}
+
+#confirm,
+#remeasure {
+  width: 100%;
+}
+
+  #confirm.hidden,
+  #remeasure.hidden {
+    display: none;
+  }
+
+#settings {
+
+}
+
+  #settings .content>.table-view:first-child {
+    margin-top: 0;
+  }
+
+  #settings input {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    -webkit-transform: translateY(-50%);
+    width: 55%;
+  }
+
+.bottom {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.btn {
+  outline: 0;
+}
+
+.btn-inline-block {
+  box-sizing: border-box; 
+  display: inline-block;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding: 15px 0;
+  width: 49%;
+}
+
+.notifications {
+  position: absolute;
+  z-index: 9999;
+  top: 50px;
+  width: 100%;
+}
+
+  .notifications .alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 70%;
+  }
+
+  .notifications .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+
+  .notifications .alert-failure {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+
+  .notifications .alert.hidden {
+    display: none;
+  }
+
+/*======================================================================
+OVERPASS MAP
+======================================================================*/
+
+#map .leaflet-control {
+  margin-top: 55px;
+}
