@@ -53,8 +53,8 @@ settingsCloseButton.addEventListener("click", function() {
 settingsSaveButton.addEventListener("click", function() {
   settings.osmUser = settingsOSMUsername.value;
   settings.osmPass = settingsOSMPassword.value;
-  settings.heightToEyes = settingsHeight.value;
-  settings.heightToFloor = settingsFloorHeight.value;
+  settings.heightToEyes = Number(settingsHeight.value);
+  settings.heightToFloor = Number(settingsFloorHeight.value);
 
   localforage.setItem("settings", settings).then(function() {
     console.log("Saved settings");
@@ -380,8 +380,6 @@ var stopCamera = function() {
 
 var setBottomValue = function(measuredValues, deviceOrientation) {
   measuredValues.bottomAngle = deviceOrientation.tiltFB;
-
-  console.log(measuredValues.bottomAngle);
 
   // Perform distance calculation
   // http://stackoverflow.com/questions/4588485/is-it-possible-to-measure-distance-to-object-with-camera/4589633#4589633
