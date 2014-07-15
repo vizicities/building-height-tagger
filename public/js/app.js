@@ -10,7 +10,9 @@ var settings = {
   code:{},
   server: "http://overpass-api.de/api/",
   // tileServer: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  tileServer: "http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg",
+  // tileServer: "http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg",
+  // tileServer: "http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
+  tileServer: "http://maptile.maps.svc.ovi.com/maptiler/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8",
   force_simple_cors_request: true,
   disable_poiomatic: true,
 };
@@ -22,6 +24,7 @@ var configs = {
 var disableFeatureInteraction = false;
 
 var splash = document.getElementById("splash");
+var locationIcon;
 
 var successNotification = document.querySelector(".notifications").querySelector(".alert-success");
 var failureNotification = document.querySelector(".notifications").querySelector(".alert-failure");
@@ -67,7 +70,7 @@ var initMap = function() {
   ide.map = new L.Map("map");
 
   var tilesUrl = settings.tileServer;
-  var tilesAttrib = '&copy; <a href="www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+  var tilesAttrib = "&copy; <a href='www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors";
   var tiles = new L.TileLayer(tilesUrl,{attribution:tilesAttrib});
 
   // ide.map.setView([51.50358, -0.01924], 16).addLayer(tiles);
@@ -82,7 +85,9 @@ var initMap = function() {
     // ide.map.fitBounds(e.layer.getBounds() );
   });
 
-  ide.map.on('load', function() {
+  ide.map.on("load", function() {
+    enableMapControls();
+
     // Request data
     var query = "[out:json];((way({s},{w},{n},{e})['building'];);(._;node(w);););out;";
 
@@ -102,8 +107,8 @@ var initMap = function() {
 
     overpass.run_query(query, "OverpassQL");
   });
-  ide.map.on('locationfound', onLocationFound);
-  ide.map.on('locationerror', onLocationError);
+  ide.map.on("locationfound", onLocationFound);
+  ide.map.on("locationerror", onLocationError);
 
   // overpass functionality
   overpass.handlers["onAjaxError"] = function(errmsg) {alert("An error occured during the execution of the overpass query!\n" + errmsg);};
@@ -170,6 +175,31 @@ var initMap = function() {
   };
 };
 
+var onMapOrientation = function(event) {
+  if (!locationIcon) {
+    return;
+  }
+
+  var transform = locationIcon.style.webkitTransform ||
+    locationIcon.style.mozTransform ||
+    locationIcon.style.msTransform ||
+    locationIcon.style.transform;
+
+  var heading = event.alpha.toFixed(0) * -1;
+
+  if (transform.search(/(-*\d+)deg/g) > 0) {
+    // Replace rotate with new value
+    transform = transform.replace(/(-*\d+)deg/g, heading + "deg");
+  } else {
+    // Add rotation
+    transform += " rotate(" + heading + "deg)";
+  }
+
+  console.log(transform);
+
+  locationIcon.style.webkitTransform = transform;
+};
+
 var disableMapControls = function() {
   ide.map.dragging.disable();
   ide.map.touchZoom.disable();
@@ -177,6 +207,9 @@ var disableMapControls = function() {
   ide.map.scrollWheelZoom.disable();
   ide.map.boxZoom.disable();
   ide.map.keyboard.disable();
+
+  // Stop tracking orientation
+  window.removeEventListener("deviceorientation", onMapOrientation, false);
 };
 
 var enableMapControls = function() {
@@ -186,11 +219,25 @@ var enableMapControls = function() {
   ide.map.scrollWheelZoom.enable();
   ide.map.boxZoom.enable();
   ide.map.keyboard.enable();
+
+  // Start tracking orientation
+  window.addEventListener("deviceorientation", onMapOrientation, false);
 };
 
 var onLocationFound = function(e) {
-  var radius = e.accuracy / 2;
-  L.marker(e.latlng).addTo(ide.map).bindPopup("You are within " + radius + " meters from this point");
+  var posIcon = L.icon({
+    iconUrl: "style/position-icon.png",
+    iconRetinaUrl: "style/position-icon@2x.png",
+    iconSize: [25, 31],
+    iconAnchor: [13, 19],
+    popupAnchor: [0, -15],
+    className: "map-position-icon"
+  });
+
+  var radius = (e.accuracy / 2).toFixed(1);
+  L.marker(e.latlng, {icon: posIcon}).addTo(ide.map).bindPopup("You are within " + radius + " meters from this point");
+
+  locationIcon = document.querySelector(".map-position-icon");
 };
 
 var onLocationError = function(e) {
@@ -330,7 +377,7 @@ var getCameraSources = function() {
   var deferred = Q.defer();
 
   if (!cameraSources) {
-    if (typeof MediaStreamTrack === 'undefined'){
+    if (typeof MediaStreamTrack === "undefined"){
       console.log("This browser does not support MediaStreamTrack");
     } else {
       MediaStreamTrack.getSources(function(sourcesInfo) {
@@ -405,7 +452,11 @@ var setTopValue = function(measuredValues, deviceOrientation) {
 
 var degToRad = function(deg) {
   return deg * (Math.PI / 180);
-}
+};
+
+var radToDeg = function(rad) {
+  return rad * (180 / Math.PI);
+};
 
 
 // Save to OSM bits and pieces

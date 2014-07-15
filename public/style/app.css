@@ -191,6 +191,10 @@ OVERPASS MAP
   margin-top: 90px;
 }
 
+#map .map-position-icon {
+  -webkit-transform-origin: 13px 19px; 
+}
+
 #map-key {
   background: #eee;
   border-bottom: 1px solid #ccc;
