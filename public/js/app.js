@@ -14,7 +14,7 @@ var settings = {
   // tileServer: "http://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
   tileServer: "http://maptile.maps.svc.ovi.com/maptiler/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8",
   force_simple_cors_request: true,
-  disable_poiomatic: true,
+  disable_poiomatic: true
 };
 
 var configs = {
@@ -194,8 +194,6 @@ var onMapOrientation = function(event) {
     // Add rotation
     transform += " rotate(" + heading + "deg)";
   }
-
-  console.log(transform);
 
   locationIcon.style.webkitTransform = transform;
 };
